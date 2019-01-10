@@ -72,6 +72,46 @@ describe("Utils", () => {
             });
         });
 
+        it("Tests that object with imports that aren't found in the specified exports are left alone.", () => {
+            const obj = {
+                param1: {
+                    "Fn::ImportValue": "Not_Found_Export1"
+                },
+                unchangedParam1: "Test",
+                param2: {
+                    param3: {
+                        "Fn::ImportValue": "Not_Found_Export2"
+                    },
+                    unchangedParam2: "Test",
+                    param4: {
+                        param5: {
+                            "Fn::ImportValue": "Not_Found_Export3"
+                        },
+                        unchangedParam3: 3
+                    }
+                }
+            };
+            Utils.replaceImports(testExports, obj);
+            expect(obj).to.deep.equal({
+                param1: {
+                    "Fn::ImportValue": "Not_Found_Export1"
+                },
+                unchangedParam1: "Test",
+                param2: {
+                    param3: {
+                        "Fn::ImportValue": "Not_Found_Export2"
+                    },
+                    unchangedParam2: "Test",
+                    param4: {
+                        param5: {
+                            "Fn::ImportValue": "Not_Found_Export3"
+                        },
+                        unchangedParam3: 3
+                    }
+                }
+            });
+        });
+
         it("Tests that object with imports is updated.", () => {
             const obj = {
                 param1: {

@@ -29,7 +29,8 @@ class ServerlessPlugin implements Plugin {
         const transfer = custom.cfTransfer;
         validateConfig(transfer);
 
-        const updatePromises = transfer.regions.map((r) => this.updateValues(r, transfer.config));
+        const regions = transfer.regions || [];
+        const updatePromises = regions.map((r) => this.updateValues(r, transfer.config));
         await Promise.all(updatePromises);
     }
 

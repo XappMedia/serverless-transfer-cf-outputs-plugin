@@ -70,6 +70,61 @@ describe("ServerlessPlugin", () => {
         await checkError(() => plugin.hooks["before:aws:deploy:deploy:createStack"]());
     });
 
+    it("Tests that everything still works if regions are not provided.", async () => {
+        const serverless = {...baseServerless};
+        serverless.service = {
+            functions: {
+                testFunction: {
+                    name: "TestFunction1",
+                    handler: "test.handler",
+                    role: {
+                        "Fn::ImportValue": "Output1"
+                    }
+                },
+                testFunction2: {
+                    name: "TestFunction2",
+                    handler: "test.handler",
+                    role: {
+                        "Fn::ImportValue": "Output2"
+                    }
+                }
+            },
+            custom: {
+                cfTransfer: {
+                    regions: undefined
+                }
+            }
+        };
+
+        const plugin = new Plugin(serverless, {});
+        await plugin.hooks["before:aws:deploy:deploy:createStack"]();
+
+        // Made it here so no crash and serverless was untouched.
+        expect(serverless.service).to.deep.equal({
+            functions: {
+                testFunction: {
+                    name: "TestFunction1",
+                    handler: "test.handler",
+                    role: {
+                        "Fn::ImportValue": "Output1"
+                    }
+                },
+                testFunction2: {
+                    name: "TestFunction2",
+                    handler: "test.handler",
+                    role: {
+                        "Fn::ImportValue": "Output2"
+                    }
+                }
+            },
+            custom: {
+                cfTransfer: {
+                    regions: undefined
+                }
+            }
+        });
+    });
+
     it("Tests that an everything is skipped if the origin region matches the current region.", async () => {
         const serverless = {...baseServerless};
         serverless.service = {
