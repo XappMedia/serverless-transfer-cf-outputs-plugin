@@ -1,0 +1,9 @@
+{
+    "cSpell.words": [
+        "serverless"
+    ],
+    "files.trimTrailingWhitespace": true,
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "tslint.enable": true,
+    "tslint.autoFixOnSave": true,
+}

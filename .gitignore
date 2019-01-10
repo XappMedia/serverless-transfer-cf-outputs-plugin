@@ -1,0 +1,7 @@
+node_modules/
+outputs/
+dist/
+npm-debug.log
+.idea
+
+.nyc_output

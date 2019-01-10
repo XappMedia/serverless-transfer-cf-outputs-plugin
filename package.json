@@ -1,0 +1,42 @@
+{
+  "name": "@xapp/serverless-transfer-cf-outputs-plugin",
+  "version": "0.0.3",
+  "description": "This is a plugin that can be used by Serverless transfer Cloudformation output items from another region.",
+  "main": "dist/index.js",
+  "scripts": {
+    "clean": "rm -rf ./node_modules && rm -rf ./outputs && rm -rf ./dist",
+    "build": "tslint ./src/**/*.ts && tsc",
+    "pretest": "npm run build",
+    "test": "nyc mocha \"./test/**/*.ts\"",
+    "version:release": "standard-version --message 'v%s'",
+    "postversion": "git push --follow-tags origin master && npm publish",
+    "prepublishOnly": "npm run build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "4.1.7",
+    "@types/mocha": "5.2.5",
+    "@types/request": "2.48.1",
+    "@types/request-promise-native": "1.0.15",
+    "@types/sinon": "7.0.3",
+    "@types/sinon-chai": "3.2.2",
+    "@xapp/serverless-plugin-types": "0.1.5",
+    "aws-sdk-mock": "4.3.0",
+    "chai": "4.2.0",
+    "mocha": "5.2.0",
+    "nyc": "13.1.0",
+    "sinon": "7.2.2",
+    "sinon-chai": "3.3.0",
+    "standard-version": "4.4.0",
+    "ts-node": "7.0.1",
+    "tslint": "5.12.0",
+    "typescript": "3.2.2"
+  },
+  "dependencies": {
+    "aws-sdk": "2.384.0",
+    "request": "2.88.0",
+    "request-promise-native": "1.0.5"
+  },
+  "peerDependencies": {}
+}
