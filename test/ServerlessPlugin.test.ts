@@ -70,6 +70,49 @@ describe("ServerlessPlugin", () => {
         await checkError(() => plugin.hooks["before:aws:deploy:deploy:createStack"]());
     });
 
+    it("Tests that an everything is skipped if the origin region matches the current region.", async () => {
+        const serverless = {...baseServerless};
+        serverless.service = {
+            provider: {
+                name: "Doesn't matter",
+                deploymentBucket: {
+                    name: "Doesn't matter"
+                },
+                runtime: "Doesn't matter",
+                region: "us-east-1"
+            },
+            functions: {
+                testFunction: {
+                    name: "TestFunction1",
+                    handler: "test.handler",
+                    role: {
+                        "Fn::ImportValue": "Output1"
+                    }
+                },
+                testFunction2: {
+                    name: "TestFunction2",
+                    handler: "test.handler",
+                    role: {
+                        "Fn::ImportValue": "Output2"
+                    }
+                }
+            },
+            custom: {
+                cfTransfer: {
+                    regions: [{
+                        region: "us-east-1",
+                        cfOutputs: ["Output1", "Output2"]
+                    }]
+                }
+            }
+        };
+
+        const plugin = new Plugin(serverless, {});
+        await plugin.hooks["before:aws:deploy:deploy:createStack"]();
+
+        expect(findExportsStub).to.not.have.been.called;
+    });
+
     it("Tests that an error is thrown if not all the exports were found at the region.", async () => {
         const serverless = { ...baseServerless };
         serverless.service = {
@@ -241,7 +284,7 @@ describe("ServerlessPlugin", () => {
         });
     });
 
-    it.only("Tests that the Provider is updated with the exports.", async () => {
+    it("Tests that the Provider is updated with the exports.", async () => {
         const serverless = {...baseServerless};
         serverless.service = {
             custom: {
