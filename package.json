@@ -34,9 +34,10 @@
     "typescript": "3.2.2"
   },
   "dependencies": {
-    "aws-sdk": "2.384.0",
     "request": "2.88.0",
     "request-promise-native": "1.0.5"
   },
-  "peerDependencies": {}
+  "peerDependencies": {
+    "aws-sdk": "2.X"
+  }
 }
