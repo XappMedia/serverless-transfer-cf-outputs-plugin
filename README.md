@@ -60,7 +60,7 @@ Serverless package and import both the port and address of the redshift server.
 serverless.yml
 ```
 plugins:
-  - "@xapp/serverless-transfer-cf-outputs-plugin"
+  - "serverless-transfer-cf-outputs-plugin"
 
 config:
     cfTransfer:
