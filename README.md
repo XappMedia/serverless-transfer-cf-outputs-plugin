@@ -8,6 +8,10 @@ In case you have a resource that only exists in one region, but you have resourc
 want talk to this resource. You can output the ARN or URL of that resource like you normally would, this
 plugin will import them to other Serverless projects.
 
+# Install
+
+`npm install --save-dev @xapp/serverless-transfer-cf-outputs-plugin`
+
 # How
 
 Say you have a Redshift server in the `us-east-1`.  The `serverless.yml` would be something like this:

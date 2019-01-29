@@ -1,5 +1,5 @@
 {
-  "name": "serverless-transfer-cf-outputs-plugin",
+  "name": "@xapp/serverless-transfer-cf-outputs-plugin",
   "version": "0.0.7",
   "description": "This is a plugin that can be used by Serverless transfer CloudFormation output items from another region.",
   "main": "dist/index.js",
@@ -26,7 +26,7 @@
     "@types/request-promise-native": "1.0.15",
     "@types/sinon": "7.0.3",
     "@types/sinon-chai": "3.2.2",
-    "serverless-plugin-type-definitions": "0.1.19",
+    "@xapp/serverless-plugin-type-definitions": "0.1.20",
     "aws-sdk-mock": "4.3.0",
     "chai": "4.2.0",
     "mocha": "5.2.0",
