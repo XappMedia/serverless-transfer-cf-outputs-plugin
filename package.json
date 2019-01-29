@@ -9,7 +9,7 @@
     "lint": "tslint 'src/**/*.ts' && tslint 'test/**/*.ts'",
     "pretest": "npm run build",
     "test": "nyc mocha \"./test/**/*.ts\"",
-    "version:release": "standard-version --message 'v%s'",
+    "version:release": "standard-version --message '[skip ci] v%s'",
     "postversion:release": "git push --follow-tags origin master && npm publish",
     "prepublishOnly": "npm run build"
   },
