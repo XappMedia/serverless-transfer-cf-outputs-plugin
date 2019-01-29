@@ -18,7 +18,7 @@ aliases:
     - &restoreCache
         restore_cache:
           keys:
-            - v3-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-{{ checksum "package.json" }}
 
     - &storeDeploy
         store_artifacts:
