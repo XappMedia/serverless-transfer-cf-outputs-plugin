@@ -1,6 +1,6 @@
 {
   "name": "serverless-transfer-cf-outputs-plugin",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "This is a plugin that can be used by Serverless transfer CloudFormation output items from another region.",
   "main": "dist/index.js",
   "scripts": {
