@@ -1,5 +1,5 @@
-import { Serverless } from "@xapp/serverless-plugin-types";
 import * as chai from "chai";
+import { Serverless } from "serverless-plugin-type-definitions";
 import * as sinon from "sinon";
 import * as sinonChai from "sinon-chai";
 import * as AWSUtils from "../src/AWSUtils";
