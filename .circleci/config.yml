@@ -94,8 +94,26 @@ jobs:
     <<: *defaults
 
     steps:
-      - *attachWorkspace
+      - checkout
+
       - *restoreCache
+
+      - run:
+         name: Setting Up Git Email
+         command: git config user.email "robot@xappmedia.com"
+
+      - run:
+         name: Setting Up Git Username
+         command: git config user.name "xappbot"
+
+      - run:
+         name: NPM Token Setup
+         command: 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
+
+      - add_ssh_keys:
+          fingerprints:
+            - "ac:a7:8a:a7:63:82:6d:76:6c:33:d2:be:d1:aa:eb:a6"
+
       - run:
           name: Release Version
           command: npm run version:release
@@ -115,6 +133,7 @@ workflows:
           requires:
             - lint
             - test
+          context: org-global
           filters:
             branches:
               only: master
