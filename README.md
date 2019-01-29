@@ -86,7 +86,7 @@ functions:
 
 If deploying in regions other than `us-east-1`, the plugin will scan the `serverless.yml`
 file and replace the `Fn::ImportValue` statements with the correct exported value from the
-`us-east-1` Cloudformation stack.
+`us-east-1` CloudFormation stack.
 
 # Config
 
@@ -96,12 +96,12 @@ The `config` for this plugin must always be `cfTransfer`. The full details are:
 config:
    cfTransfer:
     config:
-      ## Optional: This is the profile which has access to the Cloudformation stack. If not provided, then `default` is used.
+      ## Optional: This is the profile which has access to the CloudFormation stack. If not provided, then `default` is used.
       awsProfile: <profile>
     regions:
           ## Required: This is the region the values are exported from.
         - region: <region>
-          ## Required: These are the values which are to be imported from the Cloudformation stacks.
+          ## Required: These are the values which are to be imported from the CloudFormation stacks.
           cfOutputs:
             - <output>
 ```
