@@ -1,5 +1,5 @@
-import { CLI, Hooks, Serverless, ServerlessPlugin as Plugin } from "@xapp/serverless-plugin-types";
 import { CloudFormation, SharedIniFileCredentials } from "aws-sdk";
+import { CLI, Hooks, Serverless, ServerlessPlugin as Plugin } from "serverless-plugin-type-definitions";
 import { findExports } from "./AWSUtils";
 import Transfer, { Config, Region } from "./Config";
 import { replaceImports, throwError } from "./Utils";
