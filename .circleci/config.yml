@@ -110,9 +110,9 @@ jobs:
          name: NPM Token Setup
          command: 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
 
-      # - add_ssh_keys:
-      #     fingerprints:
-      #       - "9a:10:e4:8d:60:b7:2c:cc:d8:1a:81:a0:14:ad:66:3e"
+      - add_ssh_keys:
+          fingerprints:
+            - "9a:10:e4:8d:60:b7:2c:cc:d8:1a:81:a0:14:ad:66:3e"
 
       - run:
           name: Release Version
