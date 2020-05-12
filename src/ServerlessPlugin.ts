@@ -4,7 +4,7 @@ import * as Plugin from "serverless/classes/Plugin";
 import { Hooks } from "serverless/classes/Plugin";
 import { findExports } from "./AWSUtils";
 import Transfer, { Config, Region } from "./Config";
-import { replaceImports, throwError } from "./Utils";
+import { getAwsProfile, replaceImports, throwError } from "./Utils";
 
 export interface Custom {
     cfTransfer?: Transfer;
@@ -45,7 +45,7 @@ class ServerlessPlugin implements Plugin {
             apiVersion: "2010-05-15",
             region: region.region,
             credentials: new SharedIniFileCredentials({
-                profile: config.awsProfile || "default"
+                profile: getAwsProfile(this.serverless)
             })
         });
 

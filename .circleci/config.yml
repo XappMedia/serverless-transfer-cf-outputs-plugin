@@ -112,7 +112,7 @@ jobs:
 
       - add_ssh_keys:
           fingerprints:
-            - "ac:a7:8a:a7:63:82:6d:76:6c:33:d2:be:d1:aa:eb:a6"
+            - "9a:10:e4:8d:60:b7:2c:cc:d8:1a:81:a0:14:ad:66:3e"
 
       - run:
           name: Release Version

@@ -1,4 +1,5 @@
 import { Export } from "aws-sdk/clients/cloudformation";
+import * as Serverless from "serverless";
 
 /**
  * Utility method to throw an error with the tag appended to the front.
@@ -6,6 +7,14 @@ import { Export } from "aws-sdk/clients/cloudformation";
  */
 export function throwError(msg: string) {
     throw new Error(`CloudFormation Transfer Plugin: ${msg}`);
+}
+
+/**
+ * Returns the profile that is set to the serverless function.
+ * @param serverless
+ */
+export function getAwsProfile(serverless: Serverless) {
+   return (serverless.providers as any)?.aws?.options?.awsProfile || "default";
 }
 
 /**

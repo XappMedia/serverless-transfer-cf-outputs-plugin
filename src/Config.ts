@@ -1,10 +1,4 @@
 export interface Config {
-    /**
-     * The AWS profile credentials to use to download the cloudformation exports.
-     * It must have the proper IAM credentials to download items from CloudFormation in the
-     * region specified in the origin.
-     */
-    awsProfile?: string;
 }
 
 /**
