@@ -47,6 +47,9 @@ jobs:
 
       - run: npm run build
 
+      store_artifacts:
+          path: ./dist
+
       - persist_to_workspace:
           root: ~/repo
           paths:
