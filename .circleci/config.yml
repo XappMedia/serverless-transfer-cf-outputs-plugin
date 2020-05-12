@@ -53,6 +53,7 @@ jobs:
             - .git
             - .nycrc
             - outputs
+            - dist
             - src
             - test
             - package.json
