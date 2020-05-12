@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.0.10"></a>
+## [0.0.10](https://github.com/XappMedia/serverless-transfer-cf-outputs-plugin/compare/v0.0.9...v0.0.10) (2020-05-12)
+
+
+### Bug Fixes
+
+* No longer using awsProfile ([091321a](https://github.com/XappMedia/serverless-transfer-cf-outputs-plugin/commit/091321a))
+
+
+
 <a name="0.0.9"></a>
 ## [0.0.9](https://github.com/XappMedia/serverless-transfer-cf-outputs-plugin/compare/v0.0.8...v0.0.9) (2019-01-29)
 
