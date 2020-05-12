@@ -1,5 +1,7 @@
-import { CLI, Hooks, Serverless, ServerlessPlugin as Plugin } from "@xapp/serverless-plugin-type-definitions";
 import { CloudFormation, SharedIniFileCredentials } from "aws-sdk";
+import * as Serverless from "serverless";
+import * as Plugin from "serverless/classes/Plugin";
+import { Hooks } from "serverless/classes/Plugin";
 import { findExports } from "./AWSUtils";
 import Transfer, { Config, Region } from "./Config";
 import { replaceImports, throwError } from "./Utils";
@@ -11,13 +13,11 @@ export interface Custom {
 
 class ServerlessPlugin implements Plugin {
 
-    private serverless: Serverless<Custom>;
-    private cli: CLI;
+    private serverless: Serverless;
     hooks: Hooks;
 
-    constructor(serverless: Serverless<Custom>, options: any) {
+    constructor(serverless: Serverless) {
         this.serverless = serverless;
-        this.cli = serverless.cli;
         this.hooks = {
             "before:aws:deploy:deploy:createStack": this.updateImportsInServerless.bind(this),
         };
@@ -38,7 +38,7 @@ class ServerlessPlugin implements Plugin {
         const provider: { region?: string } = this.serverless.service.provider || {};
         if (provider.region === region.region) {
             // ALl imports are in the origin so continue on because everything will just workout.
-            this.cli.log("Same region as provider. Skipping transfer.");
+            this.serverless.cli.log("Same region as provider. Skipping transfer.");
             return;
         }
         const cloudFormation = new CloudFormation({
@@ -56,8 +56,8 @@ class ServerlessPlugin implements Plugin {
 
         replaceImports(getExportsResults.exports, this.serverless.service.provider);
         replaceImports(getExportsResults.exports, this.serverless.service.custom);
-        replaceImports(getExportsResults.exports, this.serverless.service.functions);
-        replaceImports(getExportsResults.exports, this.serverless.service.resources);
+        replaceImports(getExportsResults.exports, (this.serverless.service as any).functions);
+        replaceImports(getExportsResults.exports, (this.serverless.service as any).resources);
     }
 }
 

@@ -1,14 +1,13 @@
-import { Serverless } from "@xapp/serverless-plugin-type-definitions";
 import * as chai from "chai";
 import * as sinon from "sinon";
 import * as sinonChai from "sinon-chai";
 import * as AWSUtils from "../src/AWSUtils";
-import Plugin, { Custom } from "../src/ServerlessPlugin";
+import Plugin from "../src/ServerlessPlugin";
 
 chai.use(sinonChai);
 const expect = chai.expect;
 
-const baseServerless: Serverless<Custom> = {
+const baseServerless: any = {
     service: {},
     cli: {
         log: sinon.stub()
@@ -36,7 +35,7 @@ describe("ServerlessPlugin", () => {
     });
 
     it("Tests that an error is thrown if there is no parameters listed.", async () => {
-        const plugin = new Plugin(baseServerless, {});
+        const plugin = new Plugin(baseServerless);
         await checkError(() => plugin.hooks["before:aws:deploy:deploy:createStack"]());
     });
 
@@ -50,7 +49,7 @@ describe("ServerlessPlugin", () => {
             }
         };
 
-        const plugin = new Plugin(serverless, {});
+        const plugin = new Plugin(serverless);
         await checkError(() => plugin.hooks["before:aws:deploy:deploy:createStack"]());
     });
 
@@ -66,7 +65,7 @@ describe("ServerlessPlugin", () => {
                 }
             }
         };
-        const plugin = new Plugin(serverless, {});
+        const plugin = new Plugin(serverless);
         await checkError(() => plugin.hooks["before:aws:deploy:deploy:createStack"]());
     });
 
@@ -96,7 +95,7 @@ describe("ServerlessPlugin", () => {
             }
         };
 
-        const plugin = new Plugin(serverless, {});
+        const plugin = new Plugin(serverless);
         await plugin.hooks["before:aws:deploy:deploy:createStack"]();
 
         // Made it here so no crash and serverless was untouched.
@@ -162,7 +161,7 @@ describe("ServerlessPlugin", () => {
             }
         };
 
-        const plugin = new Plugin(serverless, {});
+        const plugin = new Plugin(serverless);
         await plugin.hooks["before:aws:deploy:deploy:createStack"]();
 
         expect(findExportsStub).to.not.have.been.called;
@@ -185,7 +184,7 @@ describe("ServerlessPlugin", () => {
             exports: [{ Name: "Output1", Value: "Value1"}],
             unFoundExports: ["Output2"]});
 
-        const plugin = new Plugin(serverless, {});
+        const plugin = new Plugin(serverless);
         await checkError(() => plugin.hooks["before:aws:deploy:deploy:createStack"]());
     });
 
@@ -218,7 +217,7 @@ describe("ServerlessPlugin", () => {
             }
         };
 
-        const plugin = new Plugin(serverless, {});
+        const plugin = new Plugin(serverless);
         await plugin.hooks["before:aws:deploy:deploy:createStack"]();
 
         expect(serverless.service).to.deep.equal({
@@ -270,7 +269,7 @@ describe("ServerlessPlugin", () => {
             }
         };
 
-        const plugin = new Plugin(serverless, {});
+        const plugin = new Plugin(serverless);
         await plugin.hooks["before:aws:deploy:deploy:createStack"]();
 
         expect(serverless.service).to.deep.equal({
@@ -316,7 +315,7 @@ describe("ServerlessPlugin", () => {
             }
         };
 
-        const plugin = new Plugin(serverless, {});
+        const plugin = new Plugin(serverless);
         await plugin.hooks["before:aws:deploy:deploy:createStack"]();
 
         expect(serverless.service).to.deep.equal({
@@ -372,7 +371,7 @@ describe("ServerlessPlugin", () => {
             }
         };
 
-        const plugin = new Plugin(serverless, {});
+        const plugin = new Plugin(serverless);
         await plugin.hooks["before:aws:deploy:deploy:createStack"]();
 
         expect(serverless.service).to.deep.equal({
