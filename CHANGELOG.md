@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.0.18"></a>
+## [0.0.18](https://github.com/XappMedia/serverless-transfer-cf-outputs-plugin/compare/v0.0.17...v0.0.18) (2020-05-12)
+
+
+
 <a name="0.0.17"></a>
 ## [0.0.17](https://github.com/XappMedia/serverless-transfer-cf-outputs-plugin/compare/v0.0.16...v0.0.17) (2020-05-12)
 
