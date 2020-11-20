@@ -188,6 +188,67 @@ describe("ServerlessPlugin", () => {
         await checkError(() => plugin.hooks["before:aws:deploy:deploy:createStack"]());
     });
 
+    it("Tests that no error is thrown if not all the exports were found at the region.", async () => {
+        const serverless = { ...baseServerless };
+        serverless.service = {
+            functions: {
+                testFunction: {
+                    name: "TestFunction1",
+                    handler: "test.handler",
+                    role: {
+                        "Fn::ImportValue": "Output1"
+                    }
+                },
+                testFunction2: {
+                    name: "TestFunction2",
+                    handler: "test.handler",
+                    role: {
+                        "Fn::ImportValue": "Output2"
+                    }
+                }
+            },
+            custom: {
+                cfTransfer: {
+                    regions: [{
+                        region: "us-east-1",
+                        cfOutputs: ["Output1", { name: "Output2", defaultValue: "DefaultValue" }]
+                    }]
+                }
+            }
+        };
+
+        findExportsStub.returns({
+            exports: [{ Name: "Output1", Value: "Value1"}],
+            unFoundExports: ["Output2"]});
+
+        const plugin = new Plugin(serverless);
+
+        await plugin.hooks["before:aws:deploy:deploy:createStack"]();
+
+        expect(serverless.service).to.deep.equal({
+            functions: {
+                testFunction: {
+                    name: "TestFunction1",
+                    handler: "test.handler",
+                    role: "Value1"
+                },
+                testFunction2: {
+                    name: "TestFunction2",
+                    handler: "test.handler",
+                    role: "DefaultValue"
+                }
+            },
+            custom: {
+                cfTransfer: {
+                    regions: [{
+                        region: "us-east-1",
+                        cfOutputs: ["Output1", { name: "Output2", defaultValue: "DefaultValue" }]
+                    }]
+                }
+            },
+        });
+    });
+
     it("Tests that the functions is updated with the exports.", async () => {
         const serverless = {...baseServerless};
         serverless.service = {

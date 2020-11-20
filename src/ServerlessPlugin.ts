@@ -3,7 +3,7 @@ import * as Serverless from "serverless";
 import * as Plugin from "serverless/classes/Plugin";
 import { Hooks } from "serverless/classes/Plugin";
 import { findExports } from "./AWSUtils";
-import Transfer, { Config, Region } from "./Config";
+import Transfer, { CFOutputObject, Config, Region } from "./Config";
 import { getAwsProfile, replaceImports, throwError } from "./Utils";
 
 export interface Custom {
@@ -49,9 +49,22 @@ class ServerlessPlugin implements Plugin {
             })
         });
 
-        const getExportsResults = await findExports(cloudFormation, region.cfOutputs);
-        if (getExportsResults.unFoundExports.length) {
-            throwError(`CloudFormation exports ${getExportsResults.unFoundExports.join(", ")} were not found in region ${region.region}.`);
+        const names = region.cfOutputs.map(output => typeof output === "string" ? output : output.name);
+        const optionalNames: CFOutputObject[] = region.cfOutputs
+            .filter(output => typeof output !== "string" && output.defaultValue !== undefined) as CFOutputObject[];
+        const getExportsResults = await findExports(cloudFormation, names);
+        const unFoundNotOptionalExports: string[] = [];
+        // Just add the default values to the export results.
+        for (const unFoundExport of getExportsResults.unFoundExports) {
+            const optionalName = optionalNames.find(o => o.name === unFoundExport);
+            if (optionalNames) {
+                getExportsResults.exports.push({ Name: optionalName.name, Value: optionalName.defaultValue });
+            } else {
+                unFoundNotOptionalExports.push(unFoundExport);
+            }
+        }
+        if (unFoundNotOptionalExports.length) {
+            throwError(`CloudFormation exports ${unFoundNotOptionalExports.join(", ")} were not found in region ${region.region}.`);
         }
 
         replaceImports(getExportsResults.exports, this.serverless.service.provider);

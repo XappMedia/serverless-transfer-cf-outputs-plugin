@@ -1,6 +1,19 @@
 export interface Config {
 }
 
+export interface CFOutputObject {
+    /**
+     *  The name of the imported value from CloudFormation.
+     */
+    name: string;
+    /**
+     * If exists, this will be the value if not found
+     */
+    defaultValue?: string;
+}
+
+export type CFOutput = string | CFOutputObject;
+
 /**
  * The specifications for the AWS region.
  */
@@ -17,7 +30,7 @@ export interface Region {
      *
      * Where `output-name` is the name of the exported variable.
      */
-    cfOutputs: string[];
+    cfOutputs: CFOutput[];
 }
 
 export interface PluginParameters {
