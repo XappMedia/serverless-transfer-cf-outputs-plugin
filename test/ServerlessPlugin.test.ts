@@ -258,7 +258,17 @@ describe("ServerlessPlugin", () => {
                     handler: "test.handler",
                     role: {
                         "Fn::ImportValue": "Output1"
-                    }
+                    },
+                    events: [{
+                        sns: {
+                            arn: {
+                                "Fn::ImportValue": "Output1"
+                            },
+                            TopicArn: {
+                                "Fn::ImportValue": "Output2"
+                            }
+                        }
+                    }]
                 },
                 testFunction2: {
                     name: "TestFunction2",
@@ -286,7 +296,13 @@ describe("ServerlessPlugin", () => {
                 testFunction: {
                     name: "TestFunction1",
                     handler: "test.handler",
-                    role: "Value1"
+                    role: "Value1",
+                    events: [{
+                        sns: {
+                            arn: "Value1",
+                            TopicArn: "Value2"
+                        }
+                    }]
                 },
                 testFunction2: {
                     name: "TestFunction2",

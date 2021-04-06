@@ -25,7 +25,9 @@ export async function findExports(cf: CloudFormation, exportNames: string[] = []
     const foundExports: CloudFormation.Export[] = [];
     let NextToken: any;
     do {
-        const cfExports = await cf.listExports().promise();
+        const cfExports = await cf.listExports({
+            NextToken
+        }).promise();
         NextToken = cfExports.NextToken;
 
         const unfounded = unfoundedNames.slice();
