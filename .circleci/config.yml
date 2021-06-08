@@ -118,7 +118,8 @@ jobs:
 
       - add_ssh_keys:
           fingerprints:
-            - "9a:10:e4:8d:60:b7:2c:cc:d8:1a:81:a0:14:ad:66:3e"
+            - "8b:c7:3d:b1:3c:60:dd:a8:c1:d4:9b:ac:98:0a:6d:43"
+            - "7b:74:e8:22:45:fa:61:e5:99:94:9c:57:7a:87:c2:ef"
 
       - run:
           name: Release Version
