@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.0.21"></a>
+## [0.0.21](https://github.com/XappMedia/serverless-transfer-cf-outputs-plugin/compare/v0.0.20...v0.0.21) (2021-06-08)
+
+
+### Bug Fixes
+
+* Adding new deploy keys ([463bdaa](https://github.com/XappMedia/serverless-transfer-cf-outputs-plugin/commit/463bdaa))
+* updating serverless model for profile ([d0e5fc8](https://github.com/XappMedia/serverless-transfer-cf-outputs-plugin/commit/d0e5fc8))
+
+
+
 <a name="0.0.20"></a>
 ## [0.0.20](https://github.com/XappMedia/serverless-transfer-cf-outputs-plugin/compare/v0.0.19...v0.0.20) (2021-04-06)
 
