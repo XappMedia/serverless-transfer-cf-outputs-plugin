@@ -41,12 +41,11 @@ class ServerlessPlugin implements Plugin {
             this.serverless.cli.log("Same region as provider. Skipping transfer.");
             return;
         }
+        const profile = getAwsProfile(this.serverless);
         const cloudFormation = new CloudFormation({
             apiVersion: "2010-05-15",
             region: region.region,
-            credentials: new SharedIniFileCredentials({
-                profile: getAwsProfile(this.serverless)
-            })
+            credentials: profile ? new SharedIniFileCredentials({ profile }) : undefined
         });
 
         const names = region.cfOutputs.map(output => typeof output === "string" ? output : output.name);

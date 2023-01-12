@@ -14,8 +14,8 @@ export function throwError(msg: string) {
  * @param serverless
  */
 export function getAwsProfile(serverless: Serverless) {
-   const options = (serverless.providers as any)?.aws?.options || {};
-   return options.awsProfile || options["aws-profile"] || "default";
+    const options = (serverless.providers as any)?.aws?.options || {};
+    return options.awsProfile || options["aws-profile"];
 }
 
 /**
